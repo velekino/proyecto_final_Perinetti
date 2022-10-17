@@ -6,6 +6,7 @@ class Verindex(models.Model):
      #no es un bug es un feature :P
     titulo = models.CharField(max_length=60)
     tipo = models.IntegerField()
+    #quitar tipo
     imagen = models.ImageField(upload_to ='uploads/')
     texto = models.CharField(max_length=600)
     fechapost = models.DateField()
@@ -20,16 +21,23 @@ class Cv(models.Model):
     tipo=models.IntegerField()
     ano=models.IntegerField()
     texto_cv= models.CharField(max_length=60)
+    subtexto= models.TextField()
+
 
 class Portfolio(models.Model):
     
-    tipo_portfolio=models.IntegerField()
-    imagen_portfolio=models.ImageField(upload_to ='uploads/portfolio/')
-    texto_portfolio=models.CharField(max_length=20)
+    titulo_portfolio=models.CharField(max_length=100)
+    
+    giturl= models.URLField( max_length=200)
+    texto_portfolio=models.CharField(max_length=200)
 
 class Blog(Verindex):
     
     class Meta:
         proxy = True
     #testing herencia proxy
-    
+
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=100)
+    email = models.EmailField(max_length=254)
+    mensaje = models.TextField()

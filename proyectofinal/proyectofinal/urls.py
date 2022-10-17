@@ -13,17 +13,44 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from re import template
 from django.contrib import admin
 from django.urls import path
 from miblogApp.views import *
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 urlpatterns = [
     path('', verindex, name="index"),
     path('admin/', admin.site.urls),
     path('index/', verindex, name="index"),
     path('aboutme/', aboutme, name="aboutme"),
     path('blog/', blog, name="blog"),
-    path('curriculum/', curriculum, name="curriculum"),
+    path('login/', LoginView.as_view(template_name="login.html"), name="login"),
+    path('logout/', LogoutView.as_view(template_name="logout.html"), name="logout"),
+    path('registro/', register_request, name="registro"),
+
     path('portfolio/', portfolio, name="portfolio"),
     path('contacto/', contacto, name="contacto"),
+    
     path('blogentrada/', blogentrada, name="blogentrada"),
+    path('buscaentrada/', buscaentrada, name="buscaentrada"),
+    path('editarentrada/<blogId>', editarentrada, name="editarentrada"),
+    path('borrarentrada/<blogId>', borrarentrada, name="borrarentrada"),
+   
+    path('curriculum/list', ListarCv.as_view(), name="curriculum"),
+    path('editarcurriculum/<int:pk>', EditarCv.as_view(), name="editarcurriculum"),
+    path('borrarcurriculum/<int:pk>', BorrarCv.as_view(), name="borrarcurriculum"),
+    path('crearcurriculum/nuevo', CrearCv.as_view(), name="crearcurriculum"),
+    path('detallecurriculum/<int:pk>', DetalleCv.as_view(), name="detallecurriculum"),
+
+    path('portfolio/list', ListarPortfolio.as_view(), name="portfolio"),
+    path('editarportfolio/<int:pk>', EditarPortfolio.as_view(), name="editarportfolio"),
+    path('borrarportfolio/<int:pk>', BorrarPortfolio.as_view(), name="borrarportfolio"),
+    path('crearportfolio/nuevo', CrearPortfolio.as_view(), name="crearportfolio"),
+    path('detalleportfolio/<int:pk>', DetallePortfolio.as_view(), name="detalleportfolio"),
+
+
+
+
+   
+   
 ]
